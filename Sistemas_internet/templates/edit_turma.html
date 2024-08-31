@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Turma</title>
+    <style>
+        /* Adiciona estilo básico às mensagens flash */
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+        }
+        .flashes li {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Turma</h1>
+
+    <!-- Exibir mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    
+    <form method="POST">
+        <label for="nome_turma">Nome da Turma:</label>
+        <input type="text" id="nome_turma" name="nome_turma" value="{{ turma.nome }}">
+        <button type="submit">Salvar</button>
+    </form>
+    
+    <!-- Formulário para excluir turma -->
+    <form action="{{ url_for('delete_turma', id=turma.id) }}" method="post" style="margin-top: 20px;">
+        <button type="submit" style="background-color: red; color: white; border: none; padding: 10px 20px; cursor: pointer;">Excluir</button>
+    </form>
+</body>
+</html>
